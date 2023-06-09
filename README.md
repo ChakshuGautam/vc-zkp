@@ -1,5 +1,7 @@
 # vc-zkp
 
+[![codecov](https://codecov.io/gh/ChakshuGautam/vc-zkp/branch/main/graph/badge.svg?token=ABOIO9JR1M)](https://codecov.io/gh/ChakshuGautam/vc-zkp)
+
 The `ZKP` class is used to demonstrate the principles of Zero-Knowledge Proofs (ZKPs) in a simplified form. It uses cryptographic hash functions to verify whether a certain attribute exists in a JsonLD document or whether an attribute's value is greater than a specified number, without revealing the actual value of the attribute.
 
 ## Class Properties
@@ -35,4 +37,3 @@ The `Consent` interface represents a consent object used to limit the number of 
 - `attribute: string` - The name of the attribute for which the consent is given.
 - `limit: number` - The maximum number of times the API can be accessed.
 - `currentUsage: number` - The current number of times the API has been accessed.
-
