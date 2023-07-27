@@ -48,6 +48,15 @@ describe('ZKP Class', () => {
     expect(zkp.checkAttributeGreaterThan(30)).toBe(false);
   });
 
+  it('should checkAttributeGreaterThan correctly', async () => {
+    const zkp = new ZKP(jsonLdDocument, 'age', consent);
+    const response = await zkp.checkAttributeGreaterEqualThan(20);
+
+    console.log(response);
+
+    expect(response).toBeDefined();
+  });
+
   it('should throw error if usage limit is exceeded', () => {
     const zkp = new ZKP(jsonLdDocument, 'age', consent);
     for (let i = 0; i < 5; i++) {
