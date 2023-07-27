@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { GenerateProofResponseInterface } from './common/interfaces/generateProof';
 import { generateProofGreaterEqualX } from './utils/proofGenerator';
+import { verifyProofGreaterEqualX } from './utils/proofVerifier';
 
 interface JsonLdDocument {
   '@context': string;
@@ -71,6 +72,15 @@ class ZKP {
     this.incrementUsage();
 
     return generateProofGreaterEqualX(value, this.value);
+  }
+
+  verifyProofcheckAttributeGreaterEqualThan(
+    value: number,
+    proof: object
+  ): Promise<boolean> {
+    this.incrementUsage();
+
+    return verifyProofGreaterEqualX(value, proof);
   }
 
   checkAttributeLessThan(value: number): boolean {
