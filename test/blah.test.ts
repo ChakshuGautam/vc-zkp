@@ -59,6 +59,17 @@ describe('ZKP Class', () => {
     expect(validProof).toBe(true);
   });
 
+  it('should generate and verify incorrect proof correctly', async () => {
+    const zkp = new ZKP(jsonLdDocument, 'age', consent);
+    const response = await zkp.checkAttributeGreaterEqualThan(20);
+    const validProof = await zkp.verifyProofcheckAttributeGreaterEqualThan(
+      30,
+      response.proof!
+    );
+
+    expect(validProof).toBe(false);
+  });
+
   it('should throw error if usage limit is exceeded', () => {
     const zkp = new ZKP(jsonLdDocument, 'age', consent);
     for (let i = 0; i < 5; i++) {
