@@ -2,28 +2,29 @@ const generateIncludeStatement = (circuitsDir: string, fileName: string) => {
   return `include "${circuitsDir}/${fileName}" ;`;
 };
 
-const generateCircomGreaterEqualThanX = (x: number): string => {
+const generateCircomGreaterEqualThanX = (): string => {
   return ` 
 pragma circom 2.0.0;
 
 ${generateIncludeStatement('src/circuits', 'comparators.circom')}
 
 
-template GreaterEqualThanX(x, n) {
+template GreaterEqualThanX(n) {
     signal input i;
-    signal output out;
+    signal input x; 
+    signal output out;
 
-    component gte = GreaterEqThan(n);
+    component gte = GreaterEqThan(n);
 
-    gte.in[0] <== i;
-    gte.in[1] <== x;
+    gte.in[0] <== i;
+    gte.in[1] <== x;
 
-    gte.out ==> out;
+    gte.out ==> out;
 
-    assert(gte.out == 1);
-}
-
-component main = GreaterEqualThanX(${x}, 3);
+    gte.out === 1;
+  }
+  
+  component main { public [ x ] } = GreaterEqualThanX(10);
 `;
 };
 

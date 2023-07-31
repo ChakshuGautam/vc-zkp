@@ -11,12 +11,13 @@ const generateProofGreaterEqualX = async (
   try {
     const circomId = uuidv4();
 
-    await writeFile(`${circomId}.circom`, generateCircomGreaterEqualThanX(x));
+    await writeFile(`${circomId}.circom`, generateCircomGreaterEqualThanX());
 
     await writeFile(
       `${circomId}.input.json`,
       `{
-      "i": ${value}
+      "i": ${value},
+      "x": ${x}
     }
     `
     );

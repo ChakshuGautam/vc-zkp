@@ -10,11 +10,11 @@ const verifyProofGreaterEqualX = async (
   try {
     const circomId = uuidv4();
 
-    await writeFile(`${circomId}.circom`, generateCircomGreaterEqualThanX(x));
+    await writeFile(`${circomId}.circom`, generateCircomGreaterEqualThanX());
 
     await writeFile(`${circomId}.pf.json`, `${JSON.stringify(proof)}`);
 
-    await writeFile(`${circomId}.inst.json`, `[ "1" ]`);
+    await writeFile(`${circomId}.inst.json`, `["${x}", "1" ]`);
 
     await execShellCommand(`circom ${circomId}.circom --r1cs --wasm`);
     await execShellCommand(`snarkjs powersoftau new bn128 12 tmp.ptau`);
