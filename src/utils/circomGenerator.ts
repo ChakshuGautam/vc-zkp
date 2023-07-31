@@ -6,7 +6,10 @@ const generateCircomGreaterEqualThanX = (): string => {
   return ` 
 pragma circom 2.0.0;
 
-${generateIncludeStatement('src/circuits', 'comparators.circom')}
+${generateIncludeStatement(
+  'node_modules/circomlib/circuits',
+  'comparators.circom'
+)}
 
 
 template GreaterEqualThanX(n) {
