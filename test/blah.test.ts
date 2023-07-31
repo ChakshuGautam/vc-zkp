@@ -29,7 +29,7 @@ describe('ZKP Class', () => {
 
     const consent = {
       attribute: 'age',
-      limit: 5,
+      limit: 6,
       currentUsage: 0,
     };
     const zkp = new ZKP(jsonLdDocument, 'age', consent);
@@ -48,6 +48,28 @@ describe('ZKP Class', () => {
     expect(zkp.checkAttributeGreaterThan(30)).toBe(false);
   });
 
+  it('should generate and verify proof correctly', async () => {
+    const zkp = new ZKP(jsonLdDocument, 'age', consent);
+    const response = await zkp.checkAttributeGreaterEqualThan(20);
+    const validProof = await zkp.verifyProofcheckAttributeGreaterEqualThan(
+      20,
+      response.proof!
+    );
+
+    expect(validProof).toBe(true);
+  });
+
+  it('should generate and verify incorrect proof correctly', async () => {
+    const zkp = new ZKP(jsonLdDocument, 'age', consent);
+    const response = await zkp.checkAttributeGreaterEqualThan(20);
+    const validProof = await zkp.verifyProofcheckAttributeGreaterEqualThan(
+      30,
+      response.proof!
+    );
+
+    expect(validProof).toBe(false);
+  });
+
   it('should throw error if usage limit is exceeded', () => {
     const zkp = new ZKP(jsonLdDocument, 'age', consent);
     for (let i = 0; i < 5; i++) {
@@ -58,3 +80,5 @@ describe('ZKP Class', () => {
     );
   });
 });
+
+jest.setTimeout(30000);
